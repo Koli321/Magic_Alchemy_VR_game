@@ -5,8 +5,16 @@ public class ElementsGuide : MonoBehaviour
 {
     private readonly MergePoint[] _mergeList = new[]
     {
-        new MergePoint(ElementType.Air, ElementType.Air, ElementType.Cube),
         new MergePoint(ElementType.Water, ElementType.Water, ElementType.Cube),
+        new MergePoint(ElementType.Water, ElementType.Air, ElementType.Cube),
+        new MergePoint(ElementType.Water, ElementType.Ground, ElementType.Cube),
+        new MergePoint(ElementType.Water, ElementType.Fire, ElementType.Cube),
+        new MergePoint(ElementType.Air, ElementType.Air, ElementType.Cube),
+        new MergePoint(ElementType.Air, ElementType.Ground, ElementType.Cube),
+        new MergePoint(ElementType.Air, ElementType.Fire, ElementType.Cube),
+        new MergePoint(ElementType.Ground, ElementType.Ground, ElementType.Cube),
+        new MergePoint(ElementType.Ground, ElementType.Fire, ElementType.Cube),
+        new MergePoint(ElementType.Fire, ElementType.Fire, ElementType.Cube),
     };
 
     public ElementType GetBy(ElementType first, ElementType second)

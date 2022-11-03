@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class ElementsStorage : MonoBehaviour
 {
-    [SerializeField] private TypedElement[] _elements;
+    [SerializeField] private ElementsMerging[] _elements;
 
     private readonly Dictionary<ElementType, GameObject> _elementsDictionary = new();
 
@@ -13,13 +13,13 @@ public class ElementsStorage : MonoBehaviour
     private void Awake()
     {
         foreach (var element in _elements)
-            _elementsDictionary.Add(element.Type, element.Prefab);
+            _elementsDictionary.Add(element.Type, element.gameObject);
     }
 }
 
-[Serializable]
-public class TypedElement
-{
-    public ElementType Type;
-    public GameObject Prefab;
-}
+//[Serializable]
+//public class TypedElement
+//{
+//    public ElementType Type;
+//    public GameObject Prefab;
+//}

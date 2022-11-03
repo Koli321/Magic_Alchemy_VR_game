@@ -6,6 +6,7 @@ public class ElementsMerging : MonoBehaviour
     [SerializeField] private ElementType _type;
 
     public ElementType Type { get => _type; }
+    public bool Active { get; private set; }
 
     public static event Func<ElementType, ElementType, ElementType> GetMergeElement;
     public static event Func<ElementType, GameObject> GetElementPrefab;
@@ -13,9 +14,10 @@ public class ElementsMerging : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         var other = collision.gameObject.GetComponent<ElementsMerging>();
-        if (other == null)
+        if (other == null || other.Active)
             return;
 
+        Active = true;
         var resultElementTypeNullable = GetMergeElement?.Invoke(_type, other.Type);
         var resultElementType = resultElementTypeNullable.GetValueOrDefault(ElementType.None);
 
