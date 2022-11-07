@@ -13,15 +13,13 @@ public class TeleportationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rayInteractor.enabled = false;
-
         var activate = actionAssets.FindActionMap("XRI LeftHand Locomotion").FindAction("Teleport Mode Activate");
         activate.Enable();
         activate.performed += OnTeleportActivate;
 
         var cancel = actionAssets.FindActionMap("XRI LeftHand Locomotion").FindAction("Teleport Mode Cancel");
         cancel.Enable();
-        cancel.performed += OnTeleportcancel;
+        cancel.performed += OnTeleportCancel;
 
         stick = actionAssets.FindActionMap("XRI LeftHand Locomotion").FindAction("Move");
         stick.Enable();
@@ -43,11 +41,12 @@ public class TeleportationManager : MonoBehaviour
 
         if (!rayInteractor.GetCurrentRaycastHit(out RaycastHit hit))
         {
-            rayInteractor.enabled = false;
             activated = false;
             return;
         }
 
+        // Добавить таймер на касание клавиши, убрать касание - сделать нажатие клавиши, добавить контроллер.
+        
         TeleportRequest request = new TeleportRequest()
         {
             destinationPosition = hit.point,
@@ -57,12 +56,10 @@ public class TeleportationManager : MonoBehaviour
 
     private void OnTeleportActivate(InputAction.CallbackContext context)
     {
-        rayInteractor.enabled = true;
         activated = true;
     }
-    private void OnTeleportcancel(InputAction.CallbackContext context)
+    private void OnTeleportCancel(InputAction.CallbackContext context)
     {
-        rayInteractor.enabled = false;
         activated = false;
     }
 }
