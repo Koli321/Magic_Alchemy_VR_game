@@ -1,10 +1,12 @@
 using UnityEngine;
 using System;
 
-public class ElementsGuide : MonoBehaviour
+namespace Gameplay.Elements
 {
-    private readonly MergePoint[] _mergeList = new[]
+    public class ElementsGuide : MonoBehaviour
     {
+        private readonly MergePoint[] _mergeList = new[]
+        {
         new MergePoint(ElementType.Water, ElementType.Water, ElementType.Cube),
         new MergePoint(ElementType.Water, ElementType.Air, ElementType.Cube),
         new MergePoint(ElementType.Water, ElementType.Ground, ElementType.Cube),
@@ -17,28 +19,29 @@ public class ElementsGuide : MonoBehaviour
         new MergePoint(ElementType.Fire, ElementType.Fire, ElementType.Cube),
     };
 
-    public ElementType GetBy(ElementType first, ElementType second)
-    {
-        foreach (var mergePoint in _mergeList)
+        public ElementType GetBy(ElementType first, ElementType second)
         {
-            if ((mergePoint.FirstElement == first && mergePoint.SecondElement == second) ||
-                (mergePoint.SecondElement == first && mergePoint.FirstElement == second))
-                return mergePoint.NewElement;
+            foreach (var mergePoint in _mergeList)
+            {
+                if ((mergePoint.FirstElement == first && mergePoint.SecondElement == second) ||
+                    (mergePoint.SecondElement == first && mergePoint.FirstElement == second))
+                    return mergePoint.NewElement;
+            }
+            return ElementType.None;
         }
-        return ElementType.None;
     }
-}
 
-public class MergePoint
-{
-    public ElementType FirstElement { get; }
-    public ElementType SecondElement { get; }
-    public ElementType NewElement { get; }
-
-    public MergePoint(ElementType first, ElementType second, ElementType result)
+    public class MergePoint
     {
-        FirstElement = first;
-        SecondElement = second;
-        NewElement = result;
+        public ElementType FirstElement { get; }
+        public ElementType SecondElement { get; }
+        public ElementType NewElement { get; }
+
+        public MergePoint(ElementType first, ElementType second, ElementType result)
+        {
+            FirstElement = first;
+            SecondElement = second;
+            NewElement = result;
+        }
     }
 }
